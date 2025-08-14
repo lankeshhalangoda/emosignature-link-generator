@@ -4,9 +4,9 @@ import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
+  title: 'Emojot | Bulk EmoSignature Link Generator',
   description: 'Created with v0',
-  generator: 'EmoSignature URL Generator',
+  generator: 'v0.app',
 }
 
 export default function RootLayout({
