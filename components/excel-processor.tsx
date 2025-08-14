@@ -483,7 +483,7 @@ export function ExcelProcessor() {
                 </div>
 
                 <div className="p-4 border rounded-lg">
-                  <h3 className="font-semibold mb-2">Download and Upload in Short.oiL</h3>
+                  <h3 className="font-semibold mb-2">Download and Upload in Short.io</h3>
                   <p className="text-sm text-muted-foreground mb-3">
                     CSV with Original URL and Link slug columns for short.io
                   </p>
