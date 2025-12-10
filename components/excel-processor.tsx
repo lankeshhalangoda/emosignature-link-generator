@@ -72,6 +72,20 @@ export function ExcelProcessor() {
   const [addSinhala, setAddSinhala] = useState(false)
   const [addTamil, setAddTamil] = useState(false)
 
+  const handleSinhalaToggle = useCallback((checked: boolean) => {
+    setAddSinhala(checked)
+    if (checked) {
+      setAddTamil(false) // Turn off Tamil when Sinhala is enabled
+    }
+  }, [])
+
+  const handleTamilToggle = useCallback((checked: boolean) => {
+    setAddTamil(checked)
+    if (checked) {
+      setAddSinhala(false) // Turn off Sinhala when Tamil is enabled
+    }
+  }, [])
+
   const itemsPerPage = 10
 
   const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -280,7 +294,7 @@ export function ExcelProcessor() {
                 </Label>
                 <p className="text-xs text-muted-foreground">Adds &lng=si to the generated URL</p>
               </div>
-              <Switch id="sinhala-toggle" checked={addSinhala} onCheckedChange={setAddSinhala} />
+              <Switch id="sinhala-toggle" checked={addSinhala} onCheckedChange={handleSinhalaToggle} />
             </div>
             <div className="flex items-center justify-between p-3 border rounded-md">
               <div className="space-y-0.5">
@@ -289,7 +303,7 @@ export function ExcelProcessor() {
                 </Label>
                 <p className="text-xs text-muted-foreground">Adds &lng=ta to the generated URL</p>
               </div>
-              <Switch id="tamil-toggle" checked={addTamil} onCheckedChange={setAddTamil} />
+              <Switch id="tamil-toggle" checked={addTamil} onCheckedChange={handleTamilToggle} />
             </div>
           </div>
 
