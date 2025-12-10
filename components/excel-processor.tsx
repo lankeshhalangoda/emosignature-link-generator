@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Progress } from "@/components/ui/progress"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Switch } from "@/components/ui/switch"
 import {
   Dialog,
   DialogContent,
@@ -68,6 +69,8 @@ export function ExcelProcessor() {
     rowData: {},
   })
   const [tempEditData, setTempEditData] = useState<any>({})
+  const [addSinhala, setAddSinhala] = useState(false)
+  const [addTamil, setAddTamil] = useState(false)
 
   const itemsPerPage = 10
 
@@ -112,7 +115,7 @@ export function ExcelProcessor() {
         setProgress((prev) => Math.min(prev + 10, 90))
       }, 200)
 
-      const result = await processExcelFile(file, customPath.trim())
+      const result = await processExcelFile(file, customPath.trim(), addSinhala, addTamil)
 
       clearInterval(progressInterval)
       setProgress(100)
@@ -125,7 +128,7 @@ export function ExcelProcessor() {
       setIsProcessing(false)
       setTimeout(() => setProgress(0), 1000)
     }
-  }, [file, customPath])
+  }, [file, customPath, addSinhala, addTamil])
 
   const openEditModal = useCallback(
     (rowIndex: number) => {
@@ -265,6 +268,28 @@ export function ExcelProcessor() {
                 placeholder="seylancsatupdated"
                 className="flex-1"
               />
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <Label>Language Options</Label>
+            <div className="flex items-center justify-between p-3 border rounded-md">
+              <div className="space-y-0.5">
+                <Label htmlFor="sinhala-toggle" className="text-sm font-medium">
+                  Add Sinhala as first language
+                </Label>
+                <p className="text-xs text-muted-foreground">Adds &lng=si to the generated URL</p>
+              </div>
+              <Switch id="sinhala-toggle" checked={addSinhala} onCheckedChange={setAddSinhala} />
+            </div>
+            <div className="flex items-center justify-between p-3 border rounded-md">
+              <div className="space-y-0.5">
+                <Label htmlFor="tamil-toggle" className="text-sm font-medium">
+                  Add Tamil as 1st language
+                </Label>
+                <p className="text-xs text-muted-foreground">Adds &lng=ta to the generated URL</p>
+              </div>
+              <Switch id="tamil-toggle" checked={addTamil} onCheckedChange={setAddTamil} />
             </div>
           </div>
 

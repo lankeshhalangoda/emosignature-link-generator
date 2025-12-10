@@ -20,7 +20,12 @@ interface ProcessedData {
   errors: ProcessingError[]
 }
 
-export async function processExcelFile(file: File, customPath: string): Promise<ProcessedData> {
+export async function processExcelFile(
+  file: File,
+  customPath: string,
+  addSinhala: boolean = false,
+  addTamil: boolean = false,
+): Promise<ProcessedData> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
 
@@ -45,7 +50,15 @@ export async function processExcelFile(file: File, customPath: string): Promise<
           try {
             const formattedString = generateFormattedString(row)
             const base64String = toUrlSafeBase64(formattedString)
-            const originalUrl = `https://emojot.com/${customPath}?emoSignature=${base64String}`
+            let originalUrl = `https://emojot.com/${customPath}?emoSignature=${base64String}`
+            
+            // Add language parameters if enabled
+            if (addSinhala) {
+              originalUrl += "&lng=si"
+            }
+            if (addTamil) {
+              originalUrl += "&lng=ta"
+            }
 
             const linkSlug = generateUniqueSlug(row, usedSlugs)
             const shortenUrl = `https://emo.run/${linkSlug}`
