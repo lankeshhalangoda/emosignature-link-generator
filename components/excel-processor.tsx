@@ -56,7 +56,7 @@ interface EditModalData {
 
 export function ExcelProcessor() {
   const [file, setFile] = useState<File | null>(null)
-  const [customPath, setCustomPath] = useState("seylancsatupdated")
+  const [customPath, setCustomPath] = useState("")
   const [isProcessing, setIsProcessing] = useState(false)
   const [processedData, setProcessedData] = useState<ProcessedData | null>(null)
   const [editedData, setEditedData] = useState<any[]>([])
@@ -115,7 +115,7 @@ export function ExcelProcessor() {
     }
 
     if (!customPath.trim()) {
-      setError("Please enter a custom path")
+      setError("Please enter a slug to continue. The slug is required to generate URLs.")
       return
     }
 
@@ -279,7 +279,7 @@ export function ExcelProcessor() {
                 id="custom-path"
                 value={customPath}
                 onChange={(e) => setCustomPath(e.target.value)}
-                placeholder="seylancsatupdated"
+                placeholder="please fill the slug"
                 className="flex-1"
               />
             </div>
